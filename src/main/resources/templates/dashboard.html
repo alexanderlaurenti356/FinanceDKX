@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Dashboard - FinanceDKX</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+    <!-- Dashboard Navigation -->
+    <nav class="dashboard-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="/images/dkx-logo.png" alt="DKX" class="logo-img">
+                <span class="logo-text">FinanceDKX</span>
+            </div>
+            <div class="nav-right">
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span class="user-name">John Doe</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <button class="btn btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-menu">
+                <a href="#overview" class="menu-item active" data-section="overview">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Portfolio Overview</span>
+                </a>
+                <a href="#accounts" class="menu-item" data-section="accounts">
+                    <i class="fas fa-university"></i>
+                    <span>Bank Accounts</span>
+                </a>
+                <a href="#investments" class="menu-item" data-section="investments">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Investments</span>
+                </a>
+                <a href="#credit" class="menu-item" data-section="credit">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Credit Cards</span>
+                </a>
+                <a href="#recommendations" class="menu-item" data-section="recommendations">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Recommendations</span>
+                </a>
+                <a href="#platforms" class="menu-item" data-section="platforms">
+                    <i class="fas fa-star"></i>
+                    <span>Top Platforms</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Portfolio Overview Section -->
+            <section id="overview" class="dashboard-section active">
+                <div class="section-header">
+                    <h1>Your Financial Portfolio</h1>
+                    <p>Complete overview of your traditional financial accounts</p>
+                </div>
+
+                <!-- Financial Summary Cards -->
+                <div class="summary-cards">
+                    <div class="summary-card total-assets">
+                        <div class="card-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total Net Worth</h3>
+                            <div class="amount">$127,450.32</div>
+                            <div class="change positive">+$3,245 (+2.6%) this month</div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card liquid-cash">
+                        <div class="card-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Liquid Cash</h3>
+                            <div class="amount">$23,750.00</div>
+                            <div class="change">Across 3 accounts</div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card investments">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Investments</h3>
+                            <div class="amount">$89,200.50</div>
+                            <div class="change positive">+$1,850 (+2.1%) this month</div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card credit-score">
+                        <div class="card-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Credit Score</h3>
+                            <div class="amount">785</div>
+                            <div class="change positive">+12 points this month</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Breakdown -->
+                <div class="accounts-breakdown">
+                    <div class="breakdown-chart">
+                        <h3>Account Distribution</h3>
+                        <canvas id="portfolioChart"></canvas>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon bank">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <h4>Chase Checking</h4>
+                                    <p>Direct deposit received</p>
+                                    <span class="time">2 hours ago</span>
+                                </div>
+                                <div class="activity-amount positive">+$3,250.00</div>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="activity-icon investment">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <h4>Fidelity 401(k)</h4>
+                                    <p>Automatic contribution</p>
+                                    <span class="time">1 day ago</span>
+                                </div>
+                                <div class="activity-amount">$500.00</div>
+                            </div>
+
+                            <div class="activity-item">
+                                <div class="activity-icon credit">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <h4>Chase Sapphire</h4>
+                                    <p>Rewards earned</p>
+                                    <span class="time">2 days ago</span>
+                                </div>
+                                <div class="activity-amount positive">+2,500 points</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bank Accounts Section -->
+            <section id="accounts" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Bank Accounts</h1>
+                    <button class="btn btn-primary" onclick="openAddAccount()">
+                        <i class="fas fa-plus"></i>
+                        Link New Account
+                    </button>
+                </div>
+
+                <div class="accounts-grid">
+                    <div class="account-card">
+                        <div class="account-header">
+                            <img src="/images/banks/chase.png" alt="Chase" class="bank-logo">
+                            <div class="account-info">
+                                <h3>Chase Total Checking</h3>
+                                <p>****1234</p>
+                            </div>
+                            <div class="account-balance">$8,750.32</div>
+                        </div>
+                        <div class="account-actions">
+                            <button class="btn btn-secondary">View Details</button>
+                            <button class="btn btn-primary">Transfer</button>
+                        </div>
+                    </div>
+
+                    <div class="account-card">
+                        <div class="account-header">
+                            <img src="/images/banks/marcus.png" alt="Marcus" class="bank-logo">
+                            <div class="account-info">
+                                <h3>Marcus High-Yield Savings</h3>
+                                <p>****5678 • 4.50% APY</p>
+                            </div>
+                            <div class="account-balance">$15,000.00</div>
+                        </div>
+                        <div class="account-actions">
+                            <button class="btn btn-secondary">View Details</button>
+                            <button class="btn btn-primary">Deposit</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Recommendations Section -->
+            <section id="recommendations" class="dashboard-section">
+                <div class="section-header">
+                    <h1>AI Financial Recommendations</h1>
+                    <p>Personalized suggestions to optimize your finances</p>
+                </div>
+
+                <div class="recommendations-grid">
+                    <div class="recommendation-card priority-high">
+                        <div class="rec-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>High Priority</h3>
+                        </div>
+                        <h4>Consider High-Yield Savings</h4>
+                        <p>You have $8,750 in low-yield checking. Moving to Marcus savings could earn you an extra $393/year.</p>
+                        <div class="rec-actions">
+                            <button class="btn btn-primary">Move Money</button>
+                            <button class="btn btn-secondary">Learn More</button>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-card priority-medium">
+                        <div class="rec-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3>Opportunity</h3>
+                        </div>
+                        <h4>Optimize Credit Card Rewards</h4>
+                        <p>Based on your spending, switching to Chase Freedom Flex could earn 3x more rewards.</p>
+                        <div class="rec-actions">
+                            <button class="btn btn-primary">Apply Now</button>
+                            <button class="btn btn-secondary">Compare Cards</button>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-card priority-low">
+                        <div class="rec-header">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Investment</h3>
+                        </div>
+                        <h4>Increase 401(k) Contribution</h4>
+                        <p>You're not maximizing employer matching. Increase contribution by 2% to get free $1,200/year.</p>
+                        <div class="rec-actions">
+                            <button class="btn btn-primary">Adjust Contribution</button>
+                            <button class="btn btn-secondary">Calculate Impact</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Top Platforms Section -->
+            <section id="platforms" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Recommended Financial Platforms</h1>
+                    <a href="/platforms" class="btn btn-secondary">
+                        <i class="fas fa-external-link-alt"></i>
+                        View All Platforms
+                    </a>
+                </div>
+
+                <div class="platforms-preview">
+                    <div class="platform-preview-card">
+                        <div class="platform-header">
+                            <img src="/images/platforms/fidelity.png" alt="Fidelity">
+                            <div class="platform-info">
+                                <h3>Fidelity Investments</h3>
+                                <div class="platform-rating">
+                                    <div class="stars">★★★★★</div>
+                                    <span>4.8/5</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p>Zero-fee mutual funds, excellent research tools</p>
+                        <div class="platform-metrics-small">
+                            <span>$0 fees</span>
+                            <span>$0 minimum</span>
+                        </div>
+                        <button class="btn btn-primary btn-small">Open Account</button>
+                    </div>
+
+                    <div class="platform-preview-card">
+                        <div class="platform-header">
+                            <img src="/images/platforms/betterment.png" alt="Betterment">
+                            <div class="platform-info">
+                                <h3>Betterment</h3>
+                                <div class="platform-rating">
+                                    <div class="stars">★★★★☆</div>
+                                    <span>4.6/5</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p>Automated investing with tax-loss harvesting</p>
+                        <div class="platform-metrics-small">
+                            <span>0.25% fee</span>
+                            <span>$0 minimum</span>
+                        </div>
+                        <button class="btn btn-primary btn-small">Start Investing</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html> 

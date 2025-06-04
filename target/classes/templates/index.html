@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceDKX - Decentralizing Finance with DKX Token</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="/images/dkx-logo.png" alt="DKX" class="logo-img">
+                <span class="logo-text">FinanceDKX</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#tokenomics">Tokenomics</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="/whitepaper">Whitepaper</a></li>
+                <li><a href="/login" class="nav-login">Login</a></li>
+                <li><a href="/signup" class="nav-signup">Sign Up</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Decentralize Finance with <span class="gradient-text">DKX</span></h1>
+            <p class="hero-subtitle">The future of decentralized finance is here. Join the revolution that's putting financial power back in your hands.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value" th:text="${currentPrice}">$0.0125</span>
+                    <span class="stat-label">Current Price</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" th:text="${marketCap}">$12.5M</span>
+                    <span class="stat-label">Market Cap</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" th:text="${totalSupply}">1B</span>
+                    <span class="stat-label">Total Supply</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="window.location.href='/signup'">
+                    <i class="fas fa-rocket"></i>
+                    Join DKX Now
+                </button>
+                <button class="btn btn-secondary" onclick="window.location.href='/whitepaper'">
+                    View Whitepaper
+                </button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <span>DKX Wallet</span>
+                </div>
+                <div class="card-balance">
+                    <span class="balance-amount">2,547.82 DKX</span>
+                    <span class="balance-usd">≈ $31.85</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About DKX</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>Revolutionizing Decentralized Finance</h3>
+                    <p>DKX is more than just a cryptocurrency – it's a complete ecosystem designed to democratize finance. Our platform eliminates intermediaries, reduces costs, and gives users complete control over their financial future.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Secure & Transparent</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Lightning Fast</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Low Transaction Fees</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-globe"></i>
+                            <span>Global Access</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="chart-container">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Data Section -->
+    <section class="live-data">
+        <div class="container">
+            <h2 class="section-title">Live Market Data</h2>
+            <div class="data-grid">
+                <div class="data-card">
+                    <h3>Token Price</h3>
+                    <div class="price-display">
+                        <span id="current-price">$0.0125</span>
+                        <span id="price-change" class="positive">+5.67%</span>
+                    </div>
+                </div>
+                <div class="data-card">
+                    <h3>24h Volume</h3>
+                    <div class="volume-display">
+                        <span id="volume">$1,234,567</span>
+                    </div>
+                </div>
+                <div class="data-card">
+                    <h3>Recent Transactions</h3>
+                    <div id="recent-transactions" class="transactions-list">
+                        <!-- Transactions will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tokenomics Section -->
+    <section id="tokenomics" class="tokenomics">
+        <div class="container">
+            <h2 class="section-title">Tokenomics</h2>
+            <div class="tokenomics-grid">
+                <div class="tokenomics-chart">
+                    <canvas id="tokenomicsChart"></canvas>
+                </div>
+                <div class="tokenomics-details">
+                    <div class="token-detail">
+                        <h4>Total Supply</h4>
+                        <span>1,000,000,000 DKX</span>
+                    </div>
+                    <div class="token-detail">
+                        <h4>Circulating Supply</h4>
+                        <span>750,000,000 DKX</span>
+                    </div>
+                    <div class="token-detail">
+                        <h4>Token Distribution</h4>
+                        <div class="distribution-list">
+                            <div class="distribution-item">
+                                <span class="color-box" style="background: #6366f1"></span>
+                                <span>Public Sale - 40%</span>
+                            </div>
+                            <div class="distribution-item">
+                                <span class="color-box" style="background: #8b5cf6"></span>
+                                <span>Development - 25%</span>
+                            </div>
+                            <div class="distribution-item">
+                                <span class="color-box" style="background: #06b6d4"></span>
+                                <span>Marketing - 15%</span>
+                            </div>
+                            <div class="distribution-item">
+                                <span class="color-box" style="background: #10b981"></span>
+                                <span>Team - 10%</span>
+                            </div>
+                            <div class="distribution-item">
+                                <span class="color-box" style="background: #f59e0b"></span>
+                                <span>Reserve - 10%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>FinanceDKX</h4>
+                    <p>Decentralizing finance, one transaction at a time.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="/whitepaper">Whitepaper</a></li>
+                        <li><a href="#roadmap">Roadmap</a></li>
+                        <li><a href="#team">Team</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Risk Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FinanceDKX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html> 
