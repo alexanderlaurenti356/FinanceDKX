@@ -1,6 +1,13 @@
 # FinanceDKX
 
-FinanceDKX is a Spring Boot project that serves a basic finance-themed website. It includes user signup and login pages, a dashboard, and a Python script for creating social media content.
+FinanceDKX is a Spring Boot project that serves a basic finance-themed website. It includes user signup and login pages, a dashboard, and a Python script for creating social media content.  The application is intentionally simple and can be extended into a broader financial hub.
+
+### Features
+
+- User registration and login with hashed passwords
+- Dashboard and leaderboard sample pages
+- REST APIs for token statistics and account data
+- Python automation script (`createcontent.py`) for generating marketing posts
 
 ## Prerequisites
 
@@ -9,10 +16,11 @@ FinanceDKX is a Spring Boot project that serves a basic finance-themed website. 
 
 ## Running Locally
 
-To start the application locally and see your changes:
+To start the application locally and see your changes you can use the provided
+`run.sh` script (or `run-dkx.bat` on Windows):
 
 ```bash
-./mvnw spring-boot:run
+./run.sh
 ```
 
 Then open [http://localhost:8080](http://localhost:8080) in your browser.
@@ -28,6 +36,15 @@ To build a jar file:
 ```
 
 The resulting jar will be in the `target/` directory.
+
+## Running Tests
+
+Unit tests can be executed with Maven. On the first run Maven needs to download
+dependencies from the internet:
+
+```bash
+./mvnw test
+```
 
 ## Repository Cleanup
 
