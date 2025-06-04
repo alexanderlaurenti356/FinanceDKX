@@ -1,0 +1,12 @@
+# Ignore Maven target directory
+/target/
+
+# Ignore H2 database files
+/data/
+
+# Ignore IDE settings
+.idea/
+*.iml
+
+# Ignore OS files
+.DS_Store

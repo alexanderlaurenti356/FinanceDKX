@@ -1,8 +1,0 @@
-com\financedkx\UserService.class
-com\financedkx\User.class
-com\financedkx\WebController.class
-com\financedkx\AuthController.class
-com\financedkx\ApiController.class
-com\financedkx\SecurityConfig.class
-com\financedkx\FinanceDkxApplication.class
-com\financedkx\UserRepository.class
