@@ -4,319 +4,402 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Dashboard - FinanceDKX</title>
-    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/dashboard.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="dashboard-body">
-    <!-- Dashboard Navigation -->
-    <nav class="dashboard-nav">
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="/images/dkx-logo.png" alt="DKX" class="logo-img">
                 <span class="logo-text">FinanceDKX</span>
             </div>
-            <div class="nav-right">
-                <div class="user-menu">
-                    <div class="user-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <span class="user-name">John Doe</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <button class="btn btn-logout" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Logout
+            <div class="nav-actions">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
                 </button>
+                <div class="user-menu">
+                    <img src="/images/avatar.png" alt="User" class="user-avatar">
+                    <span th:text="${username}">User</span>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Dashboard Container -->
     <div class="dashboard-container">
         <!-- Sidebar -->
-        <aside class="dashboard-sidebar">
-            <div class="sidebar-menu">
-                <a href="#overview" class="menu-item active" data-section="overview">
-                    <i class="fas fa-chart-pie"></i>
-                    <span>Portfolio Overview</span>
-                </a>
-                <a href="#accounts" class="menu-item" data-section="accounts">
-                    <i class="fas fa-university"></i>
-                    <span>Bank Accounts</span>
-                </a>
-                <a href="#investments" class="menu-item" data-section="investments">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Investments</span>
-                </a>
-                <a href="#credit" class="menu-item" data-section="credit">
-                    <i class="fas fa-credit-card"></i>
-                    <span>Credit Cards</span>
-                </a>
-                <a href="#recommendations" class="menu-item" data-section="recommendations">
-                    <i class="fas fa-robot"></i>
-                    <span>AI Recommendations</span>
-                </a>
-                <a href="#platforms" class="menu-item" data-section="platforms">
-                    <i class="fas fa-star"></i>
-                    <span>Top Platforms</span>
-                </a>
-            </div>
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="active">
+                    <a href="/dashboard">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Overview</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/banking">
+                        <i class="fas fa-university"></i>
+                        <span>Banking</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/investments">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Investments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/credit">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Credit</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/loans">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        <span>Loans</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/insurance">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Insurance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/retirement">
+                        <i class="fas fa-piggy-bank"></i>
+                        <span>Retirement</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard/crypto">
+                        <i class="fab fa-bitcoin"></i>
+                        <span>Crypto</span>
+                    </a>
+                </li>
+            </ul>
         </aside>
 
         <!-- Main Content -->
-        <main class="dashboard-main">
-            <!-- Portfolio Overview Section -->
-            <section id="overview" class="dashboard-section active">
-                <div class="section-header">
-                    <h1>Your Financial Portfolio</h1>
-                    <p>Complete overview of your traditional financial accounts</p>
-                </div>
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h1>Welcome back, <span th:text="${username}">User</span>! 👋</h1>
+                <p>Here's your complete financial overview across all your accounts and services.</p>
+            </div>
 
-                <!-- Financial Summary Cards -->
-                <div class="summary-cards">
-                    <div class="summary-card total-assets">
-                        <div class="card-icon">
-                            <i class="fas fa-wallet"></i>
-                        </div>
-                        <div class="card-content">
-                            <h3>Total Net Worth</h3>
-                            <div class="amount">$127,450.32</div>
-                            <div class="change positive">+$3,245 (+2.6%) this month</div>
-                        </div>
+            <!-- Financial Summary Cards -->
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <div class="card-icon banking">
+                        <i class="fas fa-university"></i>
                     </div>
-
-                    <div class="summary-card liquid-cash">
-                        <div class="card-icon">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <div class="card-content">
-                            <h3>Liquid Cash</h3>
-                            <div class="amount">$23,750.00</div>
-                            <div class="change">Across 3 accounts</div>
-                        </div>
-                    </div>
-
-                    <div class="summary-card investments">
-                        <div class="card-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="card-content">
-                            <h3>Investments</h3>
-                            <div class="amount">$89,200.50</div>
-                            <div class="change positive">+$1,850 (+2.1%) this month</div>
-                        </div>
-                    </div>
-
-                    <div class="summary-card credit-score">
-                        <div class="card-icon">
-                            <i class="fas fa-award"></i>
-                        </div>
-                        <div class="card-content">
-                            <h3>Credit Score</h3>
-                            <div class="amount">785</div>
-                            <div class="change positive">+12 points this month</div>
-                        </div>
+                    <div class="card-content">
+                        <h3>Total Banking</h3>
+                        <div class="amount">$45,280.50</div>
+                        <div class="change positive">+$1,250 this month</div>
                     </div>
                 </div>
 
-                <!-- Account Breakdown -->
-                <div class="accounts-breakdown">
-                    <div class="breakdown-chart">
-                        <h3>Account Distribution</h3>
-                        <canvas id="portfolioChart"></canvas>
+                <div class="summary-card">
+                    <div class="card-icon investing">
+                        <i class="fas fa-chart-line"></i>
                     </div>
-                    
-                    <div class="recent-activity">
-                        <h3>Recent Activity</h3>
-                        <div class="activity-list">
-                            <div class="activity-item">
-                                <div class="activity-icon bank">
-                                    <i class="fas fa-university"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <h4>Chase Checking</h4>
-                                    <p>Direct deposit received</p>
-                                    <span class="time">2 hours ago</span>
-                                </div>
-                                <div class="activity-amount positive">+$3,250.00</div>
-                            </div>
-
-                            <div class="activity-item">
-                                <div class="activity-icon investment">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <h4>Fidelity 401(k)</h4>
-                                    <p>Automatic contribution</p>
-                                    <span class="time">1 day ago</span>
-                                </div>
-                                <div class="activity-amount">$500.00</div>
-                            </div>
-
-                            <div class="activity-item">
-                                <div class="activity-icon credit">
-                                    <i class="fas fa-credit-card"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <h4>Chase Sapphire</h4>
-                                    <p>Rewards earned</p>
-                                    <span class="time">2 days ago</span>
-                                </div>
-                                <div class="activity-amount positive">+2,500 points</div>
-                            </div>
-                        </div>
+                    <div class="card-content">
+                        <h3>Investments</h3>
+                        <div class="amount">$127,850.25</div>
+                        <div class="change positive">+8.5% YTD</div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Bank Accounts Section -->
-            <section id="accounts" class="dashboard-section">
-                <div class="section-header">
-                    <h1>Bank Accounts</h1>
-                    <button class="btn btn-primary" onclick="openAddAccount()">
-                        <i class="fas fa-plus"></i>
-                        Link New Account
-                    </button>
+                <div class="summary-card">
+                    <div class="card-icon credit">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Credit Score</h3>
+                        <div class="amount">785</div>
+                        <div class="change positive">+15 points</div>
+                    </div>
                 </div>
 
-                <div class="accounts-grid">
-                    <div class="account-card">
-                        <div class="account-header">
-                            <img src="/images/banks/chase.png" alt="Chase" class="bank-logo">
+                <div class="summary-card">
+                    <div class="card-icon retirement">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Retirement</h3>
+                        <div class="amount">$89,420.75</div>
+                        <div class="change positive">On track for goals</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Overview & Recommendations -->
+            <div class="dashboard-grid">
+                <!-- Account Overview -->
+                <div class="dashboard-card accounts-overview">
+                    <div class="card-header">
+                        <h2>Connected Accounts</h2>
+                        <button class="btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Add Account
+                        </button>
+                    </div>
+                    <div class="accounts-list">
+                        <div class="account-item">
                             <div class="account-info">
-                                <h3>Chase Total Checking</h3>
-                                <p>****1234</p>
+                                <img src="/images/chase-logo.png" alt="Chase" class="bank-logo">
+                                <div>
+                                    <h4>Chase Sapphire Checking</h4>
+                                    <span class="account-number">****1234</span>
+                                </div>
                             </div>
-                            <div class="account-balance">$8,750.32</div>
+                            <div class="account-balance">$12,450.80</div>
                         </div>
-                        <div class="account-actions">
-                            <button class="btn btn-secondary">View Details</button>
-                            <button class="btn btn-primary">Transfer</button>
-                        </div>
-                    </div>
 
-                    <div class="account-card">
-                        <div class="account-header">
-                            <img src="/images/banks/marcus.png" alt="Marcus" class="bank-logo">
+                        <div class="account-item">
                             <div class="account-info">
-                                <h3>Marcus High-Yield Savings</h3>
-                                <p>****5678 • 4.50% APY</p>
+                                <img src="/images/fidelity-logo.png" alt="Fidelity" class="bank-logo">
+                                <div>
+                                    <h4>Fidelity Investment Account</h4>
+                                    <span class="account-number">****5678</span>
+                                </div>
                             </div>
-                            <div class="account-balance">$15,000.00</div>
+                            <div class="account-balance">$127,850.25</div>
                         </div>
-                        <div class="account-actions">
-                            <button class="btn btn-secondary">View Details</button>
-                            <button class="btn btn-primary">Deposit</button>
+
+                        <div class="account-item">
+                            <div class="account-info">
+                                <img src="/images/amex-logo.png" alt="Amex" class="bank-logo">
+                                <div>
+                                    <h4>Amex Gold Card</h4>
+                                    <span class="account-number">****9876</span>
+                                </div>
+                            </div>
+                            <div class="account-balance">-$1,245.30</div>
+                        </div>
+
+                        <div class="account-item">
+                            <div class="account-info">
+                                <img src="/images/vanguard-logo.png" alt="Vanguard" class="bank-logo">
+                                <div>
+                                    <h4>Vanguard 401(k)</h4>
+                                    <span class="account-number">****4321</span>
+                                </div>
+                            </div>
+                            <div class="account-balance">$89,420.75</div>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- AI Recommendations Section -->
-            <section id="recommendations" class="dashboard-section">
-                <div class="section-header">
-                    <h1>AI Financial Recommendations</h1>
-                    <p>Personalized suggestions to optimize your finances</p>
+                <!-- AI Recommendations -->
+                <div class="dashboard-card ai-recommendations">
+                    <div class="card-header">
+                        <h2>
+                            <i class="fas fa-robot"></i>
+                            AI Recommendations
+                        </h2>
+                        <span class="badge">Updated 2h ago</span>
+                    </div>
+                    <div class="recommendations-list">
+                        <div class="recommendation-item high-priority">
+                            <div class="recommendation-icon">
+                                <i class="fas fa-arrow-up"></i>
+                            </div>
+                            <div class="recommendation-content">
+                                <h4>Increase High-Yield Savings</h4>
+                                <p>Move $10,000 from checking to Marcus savings for +$450/year</p>
+                                <button class="btn-small">Take Action</button>
+                            </div>
+                        </div>
+
+                        <div class="recommendation-item medium-priority">
+                            <div class="recommendation-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="recommendation-content">
+                                <h4>Optimize Credit Cards</h4>
+                                <p>Switch dining to Gold Card for extra 3x points</p>
+                                <button class="btn-small">Learn More</button>
+                            </div>
+                        </div>
+
+                        <div class="recommendation-item low-priority">
+                            <div class="recommendation-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <div class="recommendation-content">
+                                <h4>Rebalance Portfolio</h4>
+                                <p>Consider moving 5% from stocks to bonds</p>
+                                <button class="btn-small">View Details</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="recommendations-grid">
-                    <div class="recommendation-card priority-high">
-                        <div class="rec-header">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <h3>High Priority</h3>
+                <!-- Financial Goal Progress -->
+                <div class="dashboard-card goal-progress">
+                    <div class="card-header">
+                        <h2>Financial Goals</h2>
+                        <button class="btn-secondary">Set New Goal</button>
+                    </div>
+                    <div class="goals-list">
+                        <div class="goal-item">
+                            <div class="goal-header">
+                                <h4>Emergency Fund</h4>
+                                <span class="goal-percentage">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                            <div class="goal-details">
+                                <span>$17,000 / $20,000</span>
+                                <span class="target-date">Target: Dec 2024</span>
+                            </div>
                         </div>
-                        <h4>Consider High-Yield Savings</h4>
-                        <p>You have $8,750 in low-yield checking. Moving to Marcus savings could earn you an extra $393/year.</p>
-                        <div class="rec-actions">
-                            <button class="btn btn-primary">Move Money</button>
-                            <button class="btn btn-secondary">Learn More</button>
+
+                        <div class="goal-item">
+                            <div class="goal-header">
+                                <h4>House Down Payment</h4>
+                                <span class="goal-percentage">42%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 42%"></div>
+                            </div>
+                            <div class="goal-details">
+                                <span>$42,000 / $100,000</span>
+                                <span class="target-date">Target: Jun 2025</span>
+                            </div>
+                        </div>
+
+                        <div class="goal-item">
+                            <div class="goal-header">
+                                <h4>Vacation Fund</h4>
+                                <span class="goal-percentage">90%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                            <div class="goal-details">
+                                <span>$4,500 / $5,000</span>
+                                <span class="target-date">Target: Mar 2024</span>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="recommendation-card priority-medium">
-                        <div class="rec-header">
-                            <i class="fas fa-lightbulb"></i>
-                            <h3>Opportunity</h3>
-                        </div>
-                        <h4>Optimize Credit Card Rewards</h4>
-                        <p>Based on your spending, switching to Chase Freedom Flex could earn 3x more rewards.</p>
-                        <div class="rec-actions">
-                            <button class="btn btn-primary">Apply Now</button>
-                            <button class="btn btn-secondary">Compare Cards</button>
-                        </div>
+                <!-- Quick Actions -->
+                <div class="dashboard-card quick-actions">
+                    <div class="card-header">
+                        <h2>Quick Actions</h2>
                     </div>
-
-                    <div class="recommendation-card priority-low">
-                        <div class="rec-header">
+                    <div class="actions-grid">
+                        <button class="action-btn">
+                            <i class="fas fa-university"></i>
+                            <span>Find Better Bank</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Apply for Credit Card</span>
+                        </button>
+                        <button class="action-btn">
                             <i class="fas fa-chart-line"></i>
-                            <h3>Investment</h3>
+                            <span>Open Investment Account</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-calculator"></i>
+                            <span>Calculate Loan Rates</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Get Insurance Quote</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Prepare Taxes</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Market Overview -->
+                <div class="dashboard-card market-overview">
+                    <div class="card-header">
+                        <h2>Market Overview</h2>
+                        <span class="market-status positive">Markets Open</span>
+                    </div>
+                    <div class="market-data">
+                        <div class="market-item">
+                            <span class="market-name">S&P 500</span>
+                            <span class="market-value">4,567.89</span>
+                            <span class="market-change positive">+1.25%</span>
                         </div>
-                        <h4>Increase 401(k) Contribution</h4>
-                        <p>You're not maximizing employer matching. Increase contribution by 2% to get free $1,200/year.</p>
-                        <div class="rec-actions">
-                            <button class="btn btn-primary">Adjust Contribution</button>
-                            <button class="btn btn-secondary">Calculate Impact</button>
+                        <div class="market-item">
+                            <span class="market-name">NASDAQ</span>
+                            <span class="market-value">14,123.45</span>
+                            <span class="market-change negative">-0.65%</span>
+                        </div>
+                        <div class="market-item">
+                            <span class="market-name">10-Year Treasury</span>
+                            <span class="market-value">4.25%</span>
+                            <span class="market-change positive">+0.03%</span>
+                        </div>
+                        <div class="market-item">
+                            <span class="market-name">Bitcoin</span>
+                            <span class="market-value">$43,567</span>
+                            <span class="market-change positive">+2.34%</span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Top Platforms Section -->
-            <section id="platforms" class="dashboard-section">
-                <div class="section-header">
-                    <h1>Recommended Financial Platforms</h1>
-                    <a href="/platforms" class="btn btn-secondary">
-                        <i class="fas fa-external-link-alt"></i>
-                        View All Platforms
-                    </a>
-                </div>
-
-                <div class="platforms-preview">
-                    <div class="platform-preview-card">
-                        <div class="platform-header">
-                            <img src="/images/platforms/fidelity.png" alt="Fidelity">
-                            <div class="platform-info">
-                                <h3>Fidelity Investments</h3>
-                                <div class="platform-rating">
-                                    <div class="stars">★★★★★</div>
-                                    <span>4.8/5</span>
-                                </div>
+                <!-- Recent Activity -->
+                <div class="dashboard-card recent-activity">
+                    <div class="card-header">
+                        <h2>Recent Activity</h2>
+                        <button class="btn-link">View All</button>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon positive">
+                                <i class="fas fa-arrow-down"></i>
                             </div>
-                        </div>
-                        <p>Zero-fee mutual funds, excellent research tools</p>
-                        <div class="platform-metrics-small">
-                            <span>$0 fees</span>
-                            <span>$0 minimum</span>
-                        </div>
-                        <button class="btn btn-primary btn-small">Open Account</button>
-                    </div>
-
-                    <div class="platform-preview-card">
-                        <div class="platform-header">
-                            <img src="/images/platforms/betterment.png" alt="Betterment">
-                            <div class="platform-info">
-                                <h3>Betterment</h3>
-                                <div class="platform-rating">
-                                    <div class="stars">★★★★☆</div>
-                                    <span>4.6/5</span>
-                                </div>
+                            <div class="activity-content">
+                                <h4>Salary Deposit</h4>
+                                <span class="activity-date">2 hours ago</span>
                             </div>
+                            <div class="activity-amount positive">+$5,250.00</div>
                         </div>
-                        <p>Automated investing with tax-loss harvesting</p>
-                        <div class="platform-metrics-small">
-                            <span>0.25% fee</span>
-                            <span>$0 minimum</span>
+
+                        <div class="activity-item">
+                            <div class="activity-icon neutral">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Investment Purchase</h4>
+                                <span class="activity-date">1 day ago</span>
+                            </div>
+                            <div class="activity-amount neutral">$1,000.00</div>
                         </div>
-                        <button class="btn btn-primary btn-small">Start Investing</button>
+
+                        <div class="activity-item">
+                            <div class="activity-icon negative">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Grocery Store</h4>
+                                <span class="activity-date">2 days ago</span>
+                            </div>
+                            <div class="activity-amount negative">-$124.67</div>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </main>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/dashboard.js"></script>
 </body>
 </html> 
